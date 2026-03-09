@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UBIS — Demo Plan</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --amber: #f59e0b;
+      --cyan: #22d3ee;
+      --emerald: #34d399;
+      --violet: #a78bfa;
+      --text: #f1f5f9;
+      --textDim: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--textDim); font-size: 0.95rem; margin-bottom: 2rem; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.75rem; color: var(--cyan); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    h3 { font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--amber); }
+    p { margin: 0 0 1rem; color: var(--textDim); }
+    ul, ol { margin: 0 0 1rem; padding-left: 1.5rem; color: var(--textDim); }
+    li { margin-bottom: 0.35rem; }
+    code { background: rgba(255,255,255,0.08); padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.9em; }
+    pre { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; overflow-x: auto; color: var(--textDim); }
+    pre code { background: none; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    th, td { border: 1px solid var(--border); padding: 0.6rem 0.75rem; text-align: left; }
+    th { background: var(--surface); color: var(--cyan); font-weight: 600; }
+    td { color: var(--textDim); }
+    td code { font-size: 0.85em; }
+    .tree { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; font-family: monospace; font-size: 0.85rem; white-space: pre; overflow-x: auto; color: var(--textDim); }
+    .checklist { list-style: none; padding-left: 0; }
+    .checklist li { padding-left: 1.75rem; position: relative; }
+    .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--amber); }
+    .step-num { color: var(--violet); font-weight: 600; margin-right: 0.5rem; }
+    .talking-point { background: rgba(52,211,153,0.1); border-left: 3px solid var(--emerald); padding: 0.5rem 0.75rem; margin: 0.5rem 0; font-size: 0.9rem; color: var(--textDim); }
+    .screenshot-path { font-size: 0.85rem; color: var(--textDim); margin-top: 0.5rem; }
+    .screenshot-path code { font-size: 0.8em; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--textDim); }
+    footer a { color: var(--cyan); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>UBIS Demo Plan</h1>
+    <p class="subtitle">Demo script and asset paths for the Unidentified Bodies Identification System (Body matching).</p>
+
+    <h2>1. Demo asset paths</h2>
+    <table>
+      <thead>
+        <tr><th>Purpose</th><th>Path</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Reference photos (missing persons)</strong></td>
+          <td><code>backend/reference_photos/</code></td>
+          <td>JPG/PNG; seeded into DB + Qdrant via <code>seed_demo_repository</code></td>
+        </tr>
+        <tr>
+          <td><strong>Sample test images (download)</strong></td>
+          <td><code>sample_test_images/</code></td>
+          <td>From project root; created by <code>scripts/download-sample-images.sh</code></td>
+        </tr>
+        <tr>
+          <td><strong>Submission uploads</strong></td>
+          <td><code>backend/uploads/</code></td>
+          <td>Per-submission folders; created at runtime</td>
+        </tr>
+        <tr>
+          <td><strong>Demo screenshots / artifacts</strong></td>
+          <td><code>docs/demo/images/</code></td>
+          <td>Optional: place screenshots here for docs or slides</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>Quick path reference</h3>
+    <div class="tree">Body matching/
+├── backend/
+│   ├── reference_photos/     ← Put reference (missing-person) images here
+│   ├── uploads/              ← Submission photos (auto-created)
+│   └── ubis.db               ← SQLite (created on first run)
+├── sample_test_images/       ← Output of download-sample-images.sh
+├── scripts/
+│   └── download-sample-images.sh
+└── docs/
+    └── demo/
+        └── images/           ← Optional: demo screenshots, flow diagrams</div>
+
+    <h2>2. Getting demo images</h2>
+    <h3>Option A: Pexels samples (recommended for quick demo)</h3>
+    <p>From project root:</p>
+    <pre><code>./scripts/download-sample-images.sh</code></pre>
+    <ul>
+      <li><strong>Output dir:</strong> <code>sample_test_images/</code></li>
+      <li><strong>Files:</strong> <code>portrait-man-1.jpeg</code>, <code>portrait-woman-1.jpeg</code>, <code>portrait-woman-2.jpeg</code></li>
+    </ul>
+    <p>Then copy into reference repo and seed:</p>
+    <pre><code>cp sample_test_images/*.jpeg backend/reference_photos/
+cd backend && python -m scripts.seed_demo_repository</code></pre>
+
+    <h3>Option B: Your own reference photos</h3>
+    <ol>
+      <li>Add JPG/PNG files to <code>backend/reference_photos/</code>.</li>
+      <li>Run: <code>cd backend && python -m scripts.seed_demo_repository</code></li>
+    </ol>
+
+    <h3>Option C: DigiFace1M (larger dataset)</h3>
+    <pre><code># After downloading a DigiFace1M part (e.g. subj_xxx/0.png layout):
+cd backend && python -m scripts.seed_from_digiface1m /path/to/DigiFace1M_part1</code></pre>
+
+    <h2>3. Pre-demo checklist</h2>
+    <ul class="checklist">
+      <li><strong>Qdrant</strong> running: <code>docker run -p 6333:6333 qdrant/qdrant</code></li>
+      <li><strong>Backend</strong> running: <code>cd backend && .venv/bin/uvicorn app.main:app --reload --port 8000</code></li>
+      <li><strong>Frontend</strong> running: <code>npm run dev</code> → http://localhost:5173</li>
+      <li><strong>Reference repo seeded:</strong> images in <code>backend/reference_photos/</code> and <code>python -m scripts.seed_demo_repository</code> run</li>
+      <li><strong>Sample images</strong> (optional): <code>./scripts/download-sample-images.sh</code> so you have files to upload in Search</li>
+    </ul>
+
+    <h2>4. Demo flow (step-by-step)</h2>
+
+    <h3>4.1 Dashboard</h3>
+    <ul>
+      <li>Open <strong>Dashboard</strong>.</li>
+      <li>Show <strong>totals</strong> (reference persons, submissions) and <strong>recent cases</strong> (if any).</li>
+    </ul>
+    <div class="talking-point">Talking point: “Overview of registered cases and reference database size.”</div>
+    <p class="screenshot-path">Optional screenshot: <code>docs/demo/images/01-dashboard.png</code></p>
+
+    <h3>4.2 New Case (register unidentified body)</h3>
+    <ol>
+      <li>Go to <strong>New Case</strong>.</li>
+      <li>Upload <strong>1–2 face photos</strong> (e.g. from <code>sample_test_images/portrait-man-1.jpeg</code>).</li>
+      <li>Fill <strong>attributes</strong> if desired (e.g. gender, age range, visible marks).</li>
+      <li>Submit.</li>
+      <li>Confirm the new submission appears in Dashboard / recent activity.</li>
+    </ol>
+    <p><strong>Paths used in demo:</strong> Upload: <code>sample_test_images/portrait-man-1.jpeg</code> (or any <code>sample_test_images/*.jpeg</code>)</p>
+    <p class="screenshot-path">Optional screenshot: <code>docs/demo/images/02-new-case.png</code></p>
+
+    <h3>4.3 Search (image + optional text/voice)</h3>
+    <ol>
+      <li>Go to <strong>Search</strong>.</li>
+      <li><strong>Image search:</strong> Upload a photo that matches one of your reference persons (e.g. same file you copied to <code>backend/reference_photos/</code>). Use <code>sample_test_images/portrait-man-1.jpeg</code> if you seeded it as reference.</li>
+      <li>Click <strong>Search</strong>.</li>
+      <li>Show <strong>matches</strong> with scores and reference photo.</li>
+      <li>Optionally add <strong>text</strong> (e.g. “male, tattoo”) or <strong>voice</strong> and run <strong>combined</strong> search.</li>
+    </ol>
+    <p><strong>Paths used in demo:</strong> Query image: <code>sample_test_images/portrait-man-1.jpeg</code>; matches show <code>photo_path</code> from reference_persons (e.g. <code>portrait-man-1.jpeg</code> served from backend).</p>
+    <p class="screenshot-path">Optional screenshots: <code>docs/demo/images/03-search-upload.png</code>, <code>docs/demo/images/04-search-results.png</code></p>
+
+    <h3>4.4 Schemas &amp; Audit</h3>
+    <ul>
+      <li><strong>Schemas:</strong> Quick walkthrough of data models (reference persons, submissions, images).</li>
+      <li><strong>Audit log:</strong> Show immutable trail of actions (who did what, when).</li>
+    </ul>
+    <p class="screenshot-path">Optional screenshots: <code>docs/demo/images/05-schemas.png</code>, <code>docs/demo/images/06-audit.png</code></p>
+
+    <h2>5. Demo image checklist (for screenshots)</h2>
+    <p>If you capture screenshots for docs or slides, use these paths:</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Description</th><th>Suggested path</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Dashboard</td><td><code>docs/demo/images/01-dashboard.png</code></td></tr>
+        <tr><td>2</td><td>New Case form</td><td><code>docs/demo/images/02-new-case.png</code></td></tr>
+        <tr><td>3</td><td>Search – upload</td><td><code>docs/demo/images/03-search-upload.png</code></td></tr>
+        <tr><td>4</td><td>Search – results</td><td><code>docs/demo/images/04-search-results.png</code></td></tr>
+        <tr><td>5</td><td>Schemas view</td><td><code>docs/demo/images/05-schemas.png</code></td></tr>
+        <tr><td>6</td><td>Audit log</td><td><code>docs/demo/images/06-audit.png</code></td></tr>
+      </tbody>
+    </table>
+    <p>Create the folder if needed:</p>
+    <pre><code>mkdir -p docs/demo/images</code></pre>
+
+    <h2>6. One-liner demo prep</h2>
+    <pre><code># From project root: get samples, seed repo, then run backend + frontend
+./scripts/download-sample-images.sh
+cp sample_test_images/*.jpeg backend/reference_photos/
+cd backend && python -m scripts.seed_demo_repository
+# In one terminal: cd backend && .venv/bin/uvicorn app.main:app --reload --port 8000
+# In another: npm run dev</code></pre>
+    <p>Then in the app: <strong>Search</strong> → upload <code>sample_test_images/portrait-man-1.jpeg</code> → expect a match.</p>
+
+    <h2>7. Related docs</h2>
+    <ul>
+      <li><strong>Architecture / user flow:</strong> <a href="../../explainer/index.html">explainer/index.html</a> (open in browser).</li>
+      <li><strong>Backend setup &amp; seed:</strong> <code>backend/README.md</code>.</li>
+    </ul>
+
+    <footer>UBIS Demo Plan · Body matching · Open <code>docs/demo/DEMO_PLAN.html</code> in a browser or serve via <code>npm run dev</code> / static server.</footer>
+  </div>
+</body>
+</html>

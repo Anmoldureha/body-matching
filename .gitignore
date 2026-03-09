@@ -1,0 +1,17 @@
+node_modules
+dist
+.DS_Store
+.venv
+__pycache__
+*.pyc
+.env
+backend/reference_photos/*
+!backend/reference_photos/.gitkeep
+backend/app/db.sqlite3
+backend/qdrant_storage
+backend/models/
+/tmp/*
+playwright-report
+test-results
+.gemini
+/Users/anmoldureha/.gemini

@@ -1,0 +1,35 @@
+# FastAPI
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Multipart / file
+python-multipart>=0.0.6
+
+# DB
+sqlalchemy>=2.0.0
+aiosqlite>=0.19.0
+
+# Face (local, open source)
+insightface>=0.7.0
+onnxruntime>=1.16.0
+numpy>=1.24.0
+opencv-python-headless>=4.8.0
+Pillow>=10.0.0
+
+# Vector DB
+qdrant-client>=1.7.0
+
+# STT (local Whisper)
+faster-whisper>=0.10.0
+
+# Env
+python-dotenv>=1.0.0
+
+# Auth
+python-jose[cryptography]>=3.3.0
+bcrypt>=4.0.0
+
+# Tests
+pytest>=7.4.0
+httpx>=0.25.0
+pytest-asyncio>=0.21.0
