@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/ubis.db:/app/ubis.db
+      - ./backend/qdrant_storage:/app/qdrant_storage
+      - ./backend/uploads:/app/uploads
+      - ./backend/reference_photos:/app/reference_photos
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - QDRANT_URL=/app/qdrant_storage
+      - PORT=8000
+    restart: always
+
+  # Optional: For production, you could use a standalone Qdrant container
+  # and update backend env to point to it.
